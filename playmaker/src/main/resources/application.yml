@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: main-server
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/playmaker
+    username: postgres
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+logging.level:
+  org.hibernate.SQL: debug
