@@ -1,11 +1,17 @@
 spring:
   application:
     name: main-server
+  servlet:
+    multipart:
+      enabled: true
+      location: /Users
+      max-request-size: 30MB
+      max-file-size: 10MB
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/playmaker
-    username: postgres
-    password: pass
+    url: jdbc:postgresql://svc.sel3.cloudtype.app:30969/playmaker
+    username: root
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: create
@@ -16,3 +22,5 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+
