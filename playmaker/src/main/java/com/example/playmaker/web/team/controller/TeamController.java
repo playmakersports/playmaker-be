@@ -23,7 +23,7 @@ public class TeamController {
 
     @PostMapping("/team/insert")
     public ResponseEntity<?> insertTeam (@RequestPart(value = "teamInfo") TeamDto teamDto,
-                                         @RequestPart(value = "image") MultipartFile file) throws IOException, ParseException {
+                                         @RequestPart(value = "image") MultipartFile file) throws IOException {
 
         log.info("teamDto",teamDto);
         teamService.insertTeam(teamDto, file);
