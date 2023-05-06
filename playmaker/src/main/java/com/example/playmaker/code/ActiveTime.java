@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Time {
+public enum ActiveTime {
 
     WEEKDAY_0("WEEKDAY_0", "07~11시"),
     WEEKDAY_1("WEEKDAY_1", "12~18시"),

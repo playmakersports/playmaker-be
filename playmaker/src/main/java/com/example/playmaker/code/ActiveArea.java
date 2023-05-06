@@ -9,7 +9,7 @@ import static com.example.playmaker.cmn.Const.*;
 
 
 @Getter
-public enum Area {
+public enum ActiveArea {
 
     SEOUL(SEOUL_CODE, SEOUL_NAME, null),
     GANGNAM(GANGNAM_CODE, GANGNAM_NAME, SEOUL),
@@ -97,39 +97,39 @@ public enum Area {
     JUNGGU2(JUNGGU2_CODE, JUNGGU2_NAME, INCHEON);
 
 
-    private final Long areaCd;
-    private final String areaName;
-    private final Area parent;
+    private final Long key;
+    private final String value;
+    private final ActiveArea parent;
 
-    private final List<Area> children = new ArrayList<>();
+    private final List<ActiveArea> children = new ArrayList<>();
 
-    Area(Long areaCd, String areaName, Area parent) {
-        this.areaCd = areaCd;
-        this.areaName = areaName;
+    ActiveArea(Long key, String value, ActiveArea parent) {
+        this.key = key;
+        this.value = value;
         this.parent = parent;
         if (this.parent != null) {
             this.parent.addChild(this);
         }
     }
 
-    private void addChild(Area child) {
-        for (Area a = this; a != null; a = a.parent) {
+    private void addChild(ActiveArea child) {
+        for (ActiveArea a = this; a != null; a = a.parent) {
             a.children.add(child);
         }
     }
 
-    public List<Area> children() {
+    public List<ActiveArea> children() {
         return this.children;
     }
 
 
-    public static Area of(Long areaCd) {
+    public static ActiveArea of(Long areaCd) {
         if (areaCd == null) {
             throw new IllegalArgumentException();
         }
 
-        for (Area a : Area.values()) {
-            if (a.areaCd.equals(areaCd)) {
+        for (ActiveArea a : ActiveArea.values()) {
+            if (a.key.equals(areaCd)) {
                 return a;
             }
         }
