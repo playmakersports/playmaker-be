@@ -1,13 +1,13 @@
 package com.example.playmaker.web.member.dto;
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 public class LoginForm {
 
     @NotBlank(message = "사용자 아이디를 입력해주세요")

@@ -1,13 +1,8 @@
 package com.example.playmaker.web.member.controller;
 
-import com.example.playmaker.domain.member.Member;
 import com.example.playmaker.security.PrincipalUserDetails;
 import com.example.playmaker.service.member.MemberService;
-import com.example.playmaker.web.member.dto.LoginForm;
-import com.example.playmaker.web.member.dto.LoginInfo;
-import com.example.playmaker.web.member.dto.MemberForm;
-import com.example.playmaker.web.member.dto.MyPageInfo;
-import lombok.Data;
+import com.example.playmaker.web.member.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,9 +33,15 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<?> showMyPage() {
-//        Long memberId = principalUserDetails.getMember().getId();
-//        return new ResponseEntity<>(memberService.showMyPage(memberId), HttpStatus.OK);
+    public ResponseEntity<MyPageInfo> showMyPage(@AuthenticationPrincipal PrincipalUserDetails principalUserDetails) {
+        Long loginMemberId = principalUserDetails.getMember().getId();
+        return new ResponseEntity<>(memberService.showMyPage(loginMemberId), HttpStatus.OK);
+    }
+
+    @PostMapping("/mypage")
+    public ResponseEntity<?> updateMyPage(@AuthenticationPrincipal PrincipalUserDetails principalUserDetails, @RequestBody MyPageForm myPageForm) {
+        Long loginMemberId = principalUserDetails.getMember().getId();
+        memberService.updateMyPage(loginMemberId, myPageForm);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 

@@ -1,14 +1,12 @@
 package com.example.playmaker.service.member;
 
+import com.example.playmaker.code.ActiveArea;
 import com.example.playmaker.code.Role;
 import com.example.playmaker.domain.member.Member;
 import com.example.playmaker.domain.member.MemberRepository;
 import com.example.playmaker.exception.CustomException;
 import com.example.playmaker.security.JwtTokenProvider;
-import com.example.playmaker.web.member.dto.LoginForm;
-import com.example.playmaker.web.member.dto.LoginInfo;
-import com.example.playmaker.web.member.dto.MemberForm;
-import com.example.playmaker.web.member.dto.MyPageInfo;
+import com.example.playmaker.web.member.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,7 +42,7 @@ public class MemberServiceImpl implements MemberService{
                 .position(memberForm.getPosition())
                 .activeArea(memberForm.getActiveArea())
                 .activeTime(memberForm.getActiveTime())
-                .mercenaryYn(memberForm.getMercenaryYn())
+                .mercenaryYn("N")  //회원가입시 용병여부 디폴트값 N
                 .proposalYn(memberForm.getProposalYn())
                 .gameStyle(memberForm.getGameStyle())
                 .selfIntro(memberForm.getSelfIntro())
@@ -94,6 +92,22 @@ public class MemberServiceImpl implements MemberService{
                 .activeTime(findMember.getActiveTime().getValue())
                 .proposalYn(findMember.getProposalYn())
                 .build();
+    }
+
+    @Transactional
+    @Override
+    public void updateMyPage(Long id, MyPageForm myPageForm) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+        findMember.setNickname(myPageForm.getNickname());
+        findMember.setPfUrl(myPageForm.getPfUrl());
+        findMember.setContact(myPageForm.getContact());
+        findMember.setPosition(myPageForm.getPosition());
+        findMember.setGameStyle(myPageForm.getGameStyle());
+        findMember.setSelfIntro(myPageForm.getSelfIntro());
+        findMember.setPreferredSoccerTeam(myPageForm.getPreferredSoccerTeam());
+//        findMember.setActiveArea(ActiveArea.of(myPageForm.getActiveArea()));
+//        findMember.setActiveTime();
+        findMember.setProposalYn(myPageForm.getProposalYn());
     }
 
     private void validateUsername(String username) {
