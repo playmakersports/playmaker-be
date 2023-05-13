@@ -23,4 +23,19 @@ public enum ActiveTime {
 
     private final String key;
     private final String value;
+
+
+    public static ActiveTime of(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+
+        for (ActiveTime a : ActiveTime.values()) {
+            if (a.key.equals(key)) {
+                return a;
+            }
+        }
+
+        throw new IllegalArgumentException("일치하는 지역코드가 없습니다.");
+    }
 }

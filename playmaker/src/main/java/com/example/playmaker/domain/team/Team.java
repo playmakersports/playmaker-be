@@ -3,9 +3,18 @@ package com.example.playmaker.domain.team;
 
 import com.example.playmaker.TimeEntity;
 import com.example.playmaker.code.Item;
+import com.example.playmaker.domain.member.Member;
+import com.example.playmaker.domain.teamoffer.TeamOffer;
 import lombok.*;
+import net.bytebuddy.matcher.FilterableList;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.*;
 
 @Entity
 @Getter
@@ -28,6 +37,14 @@ public class Team extends TimeEntity {
     private String teamIntro;
     private String joinYn;
     private String message;
+
+    @OneToMany(mappedBy = "team")
+    @Cascade(value = {ALL})
+    private List<Member> memberList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team")
+    @Cascade(value = {ALL})
+    private List<TeamOffer> teamOfferList = new ArrayList<>();
 
     @Builder
     public Team(String teamName, String engName, String teamColor, Item item,

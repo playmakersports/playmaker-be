@@ -5,9 +5,16 @@ import com.example.playmaker.code.ActiveArea;
 import com.example.playmaker.code.Role;
 import com.example.playmaker.code.Sex;
 import com.example.playmaker.code.ActiveTime;
+import com.example.playmaker.domain.team.Team;
+import com.example.playmaker.domain.teamoffer.TeamOffer;
 import lombok.*;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter @Setter
@@ -39,6 +46,14 @@ public class Member extends TimeEntity {
     private String pfUrl;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @OneToOne(mappedBy = "member")
+    @Cascade(value = {CascadeType.ALL})
+    private TeamOffer teamOffer;
 
     @Builder
     public Member(String username, String password, String nickname, String contact, String birth, Sex sex, String email,

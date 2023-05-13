@@ -1,9 +1,13 @@
 package com.example.playmaker.service.member;
 
 import com.example.playmaker.code.ActiveArea;
+import com.example.playmaker.code.ActiveTime;
 import com.example.playmaker.code.Role;
 import com.example.playmaker.domain.member.Member;
 import com.example.playmaker.domain.member.MemberRepository;
+import com.example.playmaker.domain.team.Team;
+import com.example.playmaker.domain.teamoffer.TeamOffer;
+import com.example.playmaker.domain.teamoffer.TeamOfferRepository;
 import com.example.playmaker.exception.CustomException;
 import com.example.playmaker.security.JwtTokenProvider;
 import com.example.playmaker.web.member.dto.*;
@@ -11,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.ref.PhantomReference;
+import java.util.Optional;
 
 import static com.example.playmaker.code.Error.*;
 
@@ -71,14 +78,15 @@ public class MemberServiceImpl implements MemberService{
         return LoginInfo.builder()
                 .username(member.getUsername())
                 .nickname(member.getNickname())
-                .token(jwtTokenProvider.generateToken(member.getId(), member.getUsername()))
+                .token(jwtTokenProvider.generateToken(member.getId(), member.getUsername(), member.getRole()))
                 .build();
     }
 
+    //누적골, 동네최고순위, MOM횟수 추가해야함
     @Override
-    public MyPageInfo showMyPage(Long id) {
+    public UserPageInfo showUserPage(Long id) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-        return MyPageInfo.builder()
+        return UserPageInfo.builder()
                 .nickname(findMember.getNickname())
                 .pfUrl(findMember.getPfUrl())
                 .birth(findMember.getBirth())
@@ -96,19 +104,20 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public void updateMyPage(Long id, MyPageForm myPageForm) {
+    public void updateUserPage(Long id, UserPageForm userPageForm) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-        findMember.setNickname(myPageForm.getNickname());
-        findMember.setPfUrl(myPageForm.getPfUrl());
-        findMember.setContact(myPageForm.getContact());
-        findMember.setPosition(myPageForm.getPosition());
-        findMember.setGameStyle(myPageForm.getGameStyle());
-        findMember.setSelfIntro(myPageForm.getSelfIntro());
-        findMember.setPreferredSoccerTeam(myPageForm.getPreferredSoccerTeam());
-//        findMember.setActiveArea(ActiveArea.of(myPageForm.getActiveArea()));
-//        findMember.setActiveTime();
-        findMember.setProposalYn(myPageForm.getProposalYn());
+        findMember.setNickname(userPageForm.getNickname());
+        findMember.setPfUrl(userPageForm.getPfUrl());
+        findMember.setContact(userPageForm.getContact());
+        findMember.setPosition(userPageForm.getPosition());
+        findMember.setGameStyle(userPageForm.getGameStyle());
+        findMember.setSelfIntro(userPageForm.getSelfIntro());
+        findMember.setPreferredSoccerTeam(userPageForm.getPreferredSoccerTeam());
+        findMember.setActiveArea(ActiveArea.of(Long.parseLong(userPageForm.getActiveArea())));
+        findMember.setActiveTime(ActiveTime.of(userPageForm.getActiveTime()));
+        findMember.setProposalYn(userPageForm.getProposalYn());
     }
+
 
     private void validateUsername(String username) {
         if (memberRepository.existsByUsername(username)) {

@@ -3,7 +3,7 @@ package com.example.playmaker.web.member.dto;
 import lombok.Data;
 
 @Data
-public class MyPageForm {
+public class UserPageForm {
 
     private String nickname;
     private String pfUrl;

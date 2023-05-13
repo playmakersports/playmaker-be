@@ -1,5 +1,6 @@
 package com.example.playmaker.security;
 
+import com.example.playmaker.code.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -39,10 +40,11 @@ public class JwtTokenProvider {
     }
 
     //JWT 토근 생성
-    public Token generateToken(Long id, String username) {
+    public Token generateToken(Long id, String username, Role role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("id", id);
         claims.put("username", username);
+        claims.put("role", role);
 
         Date now = new Date();
 
