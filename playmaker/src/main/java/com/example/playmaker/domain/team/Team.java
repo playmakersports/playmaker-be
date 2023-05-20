@@ -32,6 +32,7 @@ public class Team extends TimeEntity {
     private String teamColor;
     @Enumerated(value = EnumType.STRING)
     private Item item;
+    private String createDt;
     private String activeArea;
     private String logoUrl;
     private String teamIntro;
@@ -47,17 +48,33 @@ public class Team extends TimeEntity {
     private List<TeamOffer> teamOfferList = new ArrayList<>();
 
     @Builder
-    public Team(String teamName, String engName, String teamColor, Item item,
+    public Team(String teamName, String engName, String teamColor, Item item, String createDt,
                 String activeArea, String logoUrl, String teamIntro, String joinYn, String message){
         this.teamName = teamName;
         this.engName = engName;
         this.teamColor = teamColor;
         this.item = item;
+        this.createDt = createDt;
         this.activeArea = activeArea;
         this.logoUrl = logoUrl;
         this.teamIntro = teamIntro;
         this.joinYn = joinYn;
         this.message = message;
     }
+    public Team updateTeam(String teamName, String engName, String teamColor, Item item, String createDt,
+                           String activeArea, String logoUrl, String teamIntro, String joinYn, String message)
+    {
+        this.teamName = teamName;
+        this.engName = engName;
+        this.teamColor = teamColor;
+        this.item = item;
+        this.createDt  = createDt;
+        this.activeArea = activeArea;
+        this.logoUrl = logoUrl;
+        this.teamIntro = teamIntro;
+        this.joinYn = joinYn;
+        this.message = message;
 
+        return this;
+    }
 }

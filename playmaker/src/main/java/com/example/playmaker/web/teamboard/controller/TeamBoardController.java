@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/teamboard")
+@RequestMapping("/api/teamBoard")
 @Slf4j
 public class TeamBoardController {
 
@@ -32,4 +32,5 @@ public class TeamBoardController {
         List<BoardDto> info = teamBoardService.selectAll();
         return ResponseEntity.ok(info);
     }
+
 }
