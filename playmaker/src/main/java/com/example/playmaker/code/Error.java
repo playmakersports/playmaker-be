@@ -24,6 +24,7 @@ public enum Error {
 
     //404 NOT_FOUND : Resource 를 찾을 수 없음
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "E3O1","해당 유저 정보를 찾을 수 없습니다."),
+    TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "E3O1","해당 팀 정보를 찾을 수 없습니다."),
     BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "E302", "해당 게시글 정보를 찾을 수 없습니다."),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "E303", "해당 댓글 정보를 찾을 수 없습니다."),
     ATTENTION_NOT_FOUND(HttpStatus.NOT_FOUND, "E304", "해당 관심 정보를 찾을 수 업습니다."),
