@@ -10,12 +10,15 @@ import com.example.playmaker.domain.teamoffer.TeamOffer;
 import com.example.playmaker.domain.teamoffer.TeamOfferRepository;
 import com.example.playmaker.exception.CustomException;
 import com.example.playmaker.security.JwtTokenProvider;
+import com.example.playmaker.service.file.FileService;
 import com.example.playmaker.web.member.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.lang.ref.PhantomReference;
 import java.util.Optional;
 
@@ -29,6 +32,7 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final FileService fileService;
 
     @Transactional
     @Override
@@ -104,7 +108,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public void updateUserPage(Long id, UserPageForm userPageForm) {
+    public void updateUserPage(Long id, UserPageForm userPageForm, MultipartFile file) throws IOException {
+        String path = fileService.fileUpload(file);
+
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
         findMember.setNickname(userPageForm.getNickname());
         findMember.setPfUrl(userPageForm.getPfUrl());
@@ -116,6 +122,7 @@ public class MemberServiceImpl implements MemberService{
         findMember.setActiveArea(ActiveArea.of(Long.parseLong(userPageForm.getActiveArea())));
         findMember.setActiveTime(ActiveTime.of(userPageForm.getActiveTime()));
         findMember.setProposalYn(userPageForm.getProposalYn());
+        findMember.setPfUrl(path);
     }
 
 

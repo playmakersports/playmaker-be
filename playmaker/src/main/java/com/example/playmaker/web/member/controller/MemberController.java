@@ -1,6 +1,5 @@
 package com.example.playmaker.web.member.controller;
 
-import com.example.playmaker.domain.teamoffer.TeamOffer;
 import com.example.playmaker.security.PrincipalUserDetails;
 import com.example.playmaker.service.member.MemberService;
 import com.example.playmaker.service.teamoffer.TeamOfferService;
@@ -11,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @Slf4j
@@ -51,8 +52,10 @@ public class MemberController {
     }
 
     @PostMapping("/userPage/{memberId}/edit")
-    public ResponseEntity<?> updateEditUserPage(@RequestBody UserPageForm userPageForm, @PathVariable Long memberId) {
-        memberService.updateUserPage(memberId, userPageForm);
+    public ResponseEntity<?> updateEditUserPage(@RequestPart(value = "userPageForm") UserPageForm userPageForm,
+                                                @RequestPart(value = "image") MultipartFile file,
+                                                @PathVariable Long memberId) throws IOException {
+        memberService.updateUserPage(memberId, userPageForm, file);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
