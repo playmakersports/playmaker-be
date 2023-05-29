@@ -25,7 +25,7 @@ public class TeamBoard extends TimeEntity {
     private String boardName;
     private String userName;
     private String makeDt;
-    private String email;
+    private String script;
     private String picUrl;
     @ManyToOne(fetch = FetchType.LAZY)
     private Team teamId;
@@ -35,12 +35,21 @@ public class TeamBoard extends TimeEntity {
 
     @Builder
     public TeamBoard ( String boardName, String userName, String makeDt,
-                        String email, String picUrl, Team teamId){
+                        String script, String picUrl, Team teamId){
         this.boardName = boardName;
         this.userName = userName;
         this.makeDt = makeDt;
-        this.email = email;
+        this.script = script;
         this.picUrl = picUrl;
         this.teamId = teamId;
+    }
+
+    public TeamBoard updateTeamBoard(String boardName,String userName,String script, String picUrl){
+        this.boardName = boardName;
+        this.userName = userName;
+        this.script = script;
+        this.picUrl = picUrl;
+
+        return this;
     }
 }

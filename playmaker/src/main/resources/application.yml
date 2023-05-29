@@ -4,7 +4,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: /Users
+      location: /tmp/image
       max-request-size: 30MB
       max-file-size: 10MB
   datasource:
