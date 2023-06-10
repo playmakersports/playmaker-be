@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Data
 
-public class BoardDto {
+public class BoardForm {
 
     private String BoardName;
     private String userName;

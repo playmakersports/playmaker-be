@@ -5,6 +5,7 @@ import com.example.playmaker.TimeEntity;
 import com.example.playmaker.code.Item;
 import com.example.playmaker.domain.match.Match;
 import com.example.playmaker.domain.member.Member;
+import com.example.playmaker.domain.mercenaryrecruitboard.MercenaryRecruitBoard;
 import com.example.playmaker.domain.teamoffer.TeamOffer;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -58,6 +59,10 @@ public class Team extends TimeEntity {
     @OneToOne(mappedBy = "awayTeam")
     @Cascade(value = {ALL})
     private Match matchAwayTeam;
+
+    @OneToOne(mappedBy = "mercenaryTeam")
+    @Cascade(value = {ALL})
+    private MercenaryRecruitBoard mercenaryBoard;
 
     @Builder
     public Team(String teamName, String engName, String teamColor, Item item, String createDt,

@@ -8,10 +8,12 @@ import com.example.playmaker.domain.recruitboard.RecruitBoardRepository;
 import com.example.playmaker.domain.recruitspc.RecruitSpc;
 import com.example.playmaker.domain.recruitspc.RecruitSpcRepository;
 import com.example.playmaker.exception.CustomException;
-import com.example.playmaker.web.recruitspc.dto.RecruitSpcDto;
+import com.example.playmaker.web.recruitspc.dto.RecruitSpcForm;
+import com.example.playmaker.web.recruitspc.dto.RecruitSpcInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +24,11 @@ public class RecruitSpcServiceImpl implements RecruitSpcService{
     private final MemberRepository memberRepository;
     private final RecruitSpcRepository recruitSpcRepository;
     @Override
-    public void insertRecruitSpc(RecruitSpcDto recruitSpcDto) {
-        RecruitBoard board = recruitBoardRepository.findById(recruitSpcDto.getRecruitBoard()).orElseThrow(() -> new CustomException(Error.BOARD_NOT_FOUND));
-        Member member = memberRepository.findById(recruitSpcDto.getMemberId()).orElseThrow(() -> new CustomException(Error.USER_NOT_FOUND));
+    public void insertRecruitSpc(RecruitSpcForm recruitSpcForm) {
+        RecruitBoard board = recruitBoardRepository.findById(recruitSpcForm.getRecruitBoard()).orElseThrow(() -> new CustomException(Error.BOARD_NOT_FOUND));
+        Member member = memberRepository.findById(recruitSpcForm.getMemberId()).orElseThrow(() -> new CustomException(Error.USER_NOT_FOUND));
         RecruitSpc recruitSpc = RecruitSpc.builder()
-                .join_yn(recruitSpcDto.getJoinYn())
+                .join_yn(recruitSpcForm.getJoinYn())
                 .recruitBoard(board)
                 .memberId(member)
                 .build();
@@ -34,11 +36,28 @@ public class RecruitSpcServiceImpl implements RecruitSpcService{
     }
 
     @Override
-    public List<RecruitSpcDto> selectAll() {
-        List<RecruitSpc> recruitSpcInfo = recruitSpcRepository.findAll();
-        List<RecruitSpcDto> info = recruitSpcInfo.stream()
-                .map(o->new RecruitSpcDto())
-                .collect(Collectors.toList());
+    public List<RecruitSpcInfo> selectAll() {
+        List<RecruitSpc> recruitSpcInfos = recruitSpcRepository.findAll();
+        List<RecruitSpcInfo> info = new ArrayList<>();
+        for(int i=0;i<=recruitSpcInfos.size();i++)
+        {
+            Member member = recruitSpcInfos.get(i).getMemberId();
+            RecruitSpcInfo recruitSpcinfo = RecruitSpcInfo.builder()
+                    .nickname(member.getNickname())
+                    .birth(member.getBirth())
+                    .position(member.getPosition())
+                    .gameStyle(member.getGameStyle())
+                    .selfIntro(member.getSelfIntro())
+                    .joinYn(recruitSpcInfos.get(i).getJoin_yn())
+                    .build();
+            info.add(recruitSpcinfo);
+        }
         return info;
+    }
+
+    @Override
+    public void updateRecruitSpc(Long id, RecruitSpcForm recruitSpcForm) {
+        RecruitSpc recruitSpc = recruitSpcRepository.findById(id).orElseThrow(()-> new CustomException(Error.USER_NOT_FOUND));
+        recruitSpc.setJoin_yn(recruitSpcForm.getJoinYn());
     }
 }

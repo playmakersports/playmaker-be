@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 
-public class RecruitSpcDto {
+public class RecruitSpcForm {
     private String joinYn;
     private Long memberId;
     private Long recruitBoard;

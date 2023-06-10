@@ -5,6 +5,7 @@ import com.example.playmaker.code.ActiveArea;
 import com.example.playmaker.code.Role;
 import com.example.playmaker.code.Sex;
 import com.example.playmaker.code.ActiveTime;
+import com.example.playmaker.domain.mercenaryrecruitspc.MercenaryRecruitSpc;
 import com.example.playmaker.domain.team.Team;
 import com.example.playmaker.domain.teamoffer.TeamOffer;
 import lombok.*;
@@ -54,6 +55,10 @@ public class Member extends TimeEntity {
     @OneToOne(mappedBy = "member")
     @Cascade(value = {CascadeType.ALL})
     private TeamOffer teamOffer;
+
+    @OneToOne(mappedBy = "member")
+    @Cascade(value = {CascadeType.ALL})
+    private MercenaryRecruitSpc recruitSpc;
 
     @Builder
     public Member(String username, String password, String nickname, String contact, String birth, Sex sex, String email,

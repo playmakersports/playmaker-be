@@ -24,12 +24,13 @@ public class TeamController {
     @PostMapping()
     public ResponseEntity<?>insertTeam(@RequestPart(value = "teamInfo") TeamForm teamDto,
                                          @RequestPart(value = "image") MultipartFile file) throws IOException {
-        log.info("teamDto",teamDto);
+        log.info("insert : teamDto",teamDto);
         teamService.insertTeam(teamDto, file);
         return ResponseEntity.ok("success");
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> selectTeam (@PathVariable String id){
+        log.info("select : team");
         List<TeamInfo> info = teamService.selectTeam(id);
         return ResponseEntity.ok(info);
     }
@@ -37,7 +38,7 @@ public class TeamController {
     public ResponseEntity<?> editTeam(@PathVariable Long id,
                                       @RequestPart(value = "teamInfo") TeamForm teamDto,
                                       @RequestPart(value = "image") MultipartFile file) throws IOException{
-        log.info("teamDto",teamDto);
+        log.info("update : teamDto",teamDto);
         teamService.editTeam(id, teamDto, file);
         return ResponseEntity.ok("success");
     }

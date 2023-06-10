@@ -10,4 +10,5 @@ public interface RecruitBoardService {
 
     void insertRecruitBoard(RecruitBoardDto recruitBoard);
     List<RecruitBoardDto> selectAll();
+    void deleteRecruitBoard(Long id);
 }

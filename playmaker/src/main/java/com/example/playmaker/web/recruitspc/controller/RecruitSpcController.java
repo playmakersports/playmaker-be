@@ -2,8 +2,8 @@ package com.example.playmaker.web.recruitspc.controller;
 
 
 import com.example.playmaker.service.recruitspc.RecruitSpcService;
-import com.example.playmaker.web.recruitspc.dto.RecruitSpcDto;
-import lombok.NoArgsConstructor;
+import com.example.playmaker.web.recruitspc.dto.RecruitSpcForm;
+import com.example.playmaker.web.recruitspc.dto.RecruitSpcInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +14,30 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/recruitSpc")
 public class RecruitSpcController {
 
     private final RecruitSpcService recruitSpcService;
 
-    @PostMapping("/recruitSpc/insert")
-    public ResponseEntity<?> insertRecruitSpc(@RequestPart (value = "recruitSpcInfo")
-                                              RecruitSpcDto recruitSpcDto)
+    @PostMapping()
+    public ResponseEntity<?> insertRecruitSpc(@RequestBody RecruitSpcForm recruitSpcForm)
     {
-        log.info("recritSpcDto",recruitSpcDto);
-        recruitSpcService.insertRecruitSpc(recruitSpcDto);
+        log.info("insert : recruitSpcDto", recruitSpcForm);
+        recruitSpcService.insertRecruitSpc(recruitSpcForm);
         return ResponseEntity.ok("success");
     }
-    @GetMapping("/recruitSpc/select")
+
+    @GetMapping()
     public ResponseEntity<?> selectRecruitSpc(){
-        List<RecruitSpcDto> info = recruitSpcService.selectAll();
+        List<RecruitSpcInfo> info = recruitSpcService.selectAll();
+        log.info("select : recruitSpc");
         return ResponseEntity.ok(info);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> updateRecruitSpc(@PathVariable Long id, @RequestBody RecruitSpcForm recruitSpcForm){
+        recruitSpcService.updateRecruitSpc(id,recruitSpcForm);
+        log.info("delete : recruitSpcDto");
+        return ResponseEntity.ok("success");
     }
 }

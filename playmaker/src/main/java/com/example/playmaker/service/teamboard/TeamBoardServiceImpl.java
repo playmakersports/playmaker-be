@@ -8,7 +8,7 @@ import com.example.playmaker.domain.teamboard.TeamBoard;
 import com.example.playmaker.domain.teamboard.TeamBoardRepository;
 import com.example.playmaker.exception.CustomException;
 import com.example.playmaker.service.file.FileService;
-import com.example.playmaker.web.teamboard.dto.BoardDto;
+import com.example.playmaker.web.teamboard.dto.BoardForm;
 import com.example.playmaker.web.teamboard.dto.BoardInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,14 +31,14 @@ public class TeamBoardServiceImpl implements TeamBoardService{
     private final TeamRepository teamRepository;
 
     @Override
-    public void insertBoard(BoardDto boardDto, MultipartFile file) throws IOException {
+    public void insertBoard(BoardForm boardForm, MultipartFile file) throws IOException {
         String path = fileService.fileUpload(file);
-        Team team =  teamRepository.findById(boardDto.getTeamId()).orElse(null);
+        Team team =  teamRepository.findById(boardForm.getTeamId()).orElse(null);
         TeamBoard board = TeamBoard.builder()
-                .boardName(boardDto.getBoardName())
-                .userName(boardDto.getUserName())
-                .makeDt(boardDto.getMakeDt())
-                .script(boardDto.getScript())
+                .boardName(boardForm.getBoardName())
+                .userName(boardForm.getUserName())
+                .makeDt(boardForm.getMakeDt())
+                .script(boardForm.getScript())
                 .picUrl(path)
                 .teamId(team)
                 .build();
@@ -46,11 +46,11 @@ public class TeamBoardServiceImpl implements TeamBoardService{
     }
 
     @Override
-    public List<BoardDto> selectAll() {
+    public List<BoardForm> selectAll() {
         List<TeamBoard> boardInfo = teamBoardRepository.findAll();
-        List<BoardDto> info = boardInfo.stream()
-                .map(o->new BoardDto())
-                .sorted(Comparator.comparing(BoardDto::getMakeDt).reversed())
+        List<BoardForm> info = boardInfo.stream()
+                .map(o->new BoardForm())
+                .sorted(Comparator.comparing(BoardForm::getMakeDt).reversed())
                 .collect(Collectors.toList());
         return info;
 
@@ -70,14 +70,24 @@ public class TeamBoardServiceImpl implements TeamBoardService{
     }
 
     @Override
-    public void editBoard(Long id, BoardDto boardDto, MultipartFile file) throws IOException {
-        String path = fileService.fileUpload(file);
-        teamBoardRepository.findById(id).map(
-                entity -> entity.updateTeamBoard(boardDto.getBoardName()
-                                                ,boardDto.getUserName()
-                                                ,boardDto.getScript()
-                                                ,boardDto.getPicUrl())
-        );
+    public void editBoard(Long id, BoardForm boardForm, MultipartFile file) throws IOException {
+        if(!file.isEmpty()){
+            String path = fileService.fileUpload(file);
+            teamBoardRepository.findById(id).map(
+                    entity -> entity.updateTeamBoard( boardForm.getBoardName()
+                                                     , boardForm.getUserName()
+                                                     , boardForm.getScript()
+                                                        ,path)
+            );
+        }
+        else {
+            teamBoardRepository.findById(id).map(
+                    entity -> entity.updateTeamBoard(boardForm.getBoardName()
+                            , boardForm.getUserName()
+                            , boardForm.getScript()
+                            , boardForm.getPicUrl())
+            );
+        }
     }
 
     @Override

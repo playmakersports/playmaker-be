@@ -46,4 +46,10 @@ public class RecruitBoardServiceImpl implements RecruitBoardService {
                 .collect(Collectors.toList());
         return info;
     }
+
+    @Override
+    public void deleteRecruitBoard(Long id) {
+        RecruitBoard board = recruitBoardRepository.findById(id).orElseThrow(() -> new CustomException(Error.USER_NOT_FOUND));
+        recruitBoardRepository.delete(board);
+    }
 }
