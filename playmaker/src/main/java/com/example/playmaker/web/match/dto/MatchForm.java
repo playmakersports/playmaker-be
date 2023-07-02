@@ -12,6 +12,7 @@ public class MatchForm {
     private String matchArea;
     private Team homeTeam;
     private Team awayTeam;
+    private Long awayTeamId;
     private String publicMatchYn;
     private int homeTeamScore;
     private int awayTeamScore;

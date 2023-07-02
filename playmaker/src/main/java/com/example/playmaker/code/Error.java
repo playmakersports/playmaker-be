@@ -24,7 +24,6 @@ public enum Error {
 
     //404 NOT_FOUND : Resource 를 찾을 수 없음
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "E3O1","해당 유저 정보를 찾을 수 없습니다."),
-    TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "E3O1","해당 팀 정보를 찾을 수 없습니다."),
     BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "E302", "해당 게시글 정보를 찾을 수 없습니다."),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "E303", "해당 댓글 정보를 찾을 수 없습니다."),
     ATTENTION_NOT_FOUND(HttpStatus.NOT_FOUND, "E304", "해당 관심 정보를 찾을 수 업습니다."),
@@ -35,6 +34,8 @@ public enum Error {
     KEYWORD_NOT_FOUND(HttpStatus.NOT_FOUND, "E309", "해당 키워드 정보를 찾을 수 없습니다."),
     KEYWORD_ALARM_NOT_FOUND(HttpStatus.NOT_FOUND, "E310", "해당 키워드 알림 정보를 찾을 수 없습니다."),
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "E311", "해당 리뷰 정보를 찾을 수 없습니다."),
+    TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "E312","해당 팀 정보를 찾을 수 없습니다."),
+    MATCH_NOT_FOUND(HttpStatus.NOT_FOUND, "E313", "해당 매치 정보를 찾을 수 없습니다."),
 
     //409 CONFLICT : Resource 의 현재 상태와 충돌, 보통 중복된 데이터 존재
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "E4O1","중복된 EMAIL 이 존재합니다."),

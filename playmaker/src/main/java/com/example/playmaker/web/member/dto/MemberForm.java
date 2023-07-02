@@ -3,10 +3,7 @@ package com.example.playmaker.web.member.dto;
 import com.example.playmaker.code.ActiveArea;
 import com.example.playmaker.code.ActiveTime;
 import com.example.playmaker.code.Sex;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 

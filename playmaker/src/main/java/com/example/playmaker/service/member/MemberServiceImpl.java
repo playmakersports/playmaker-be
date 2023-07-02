@@ -5,6 +5,7 @@ import com.example.playmaker.code.ActiveTime;
 import com.example.playmaker.code.Role;
 import com.example.playmaker.domain.member.Member;
 import com.example.playmaker.domain.member.MemberRepository;
+import com.example.playmaker.domain.recruitboard.RecruitBoard;
 import com.example.playmaker.domain.team.Team;
 import com.example.playmaker.domain.teamoffer.TeamOffer;
 import com.example.playmaker.domain.teamoffer.TeamOfferRepository;
@@ -67,8 +68,8 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member findMember(Long id) {
         return memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-    }
 
+    }
     @Transactional
     @Override
     public LoginInfo login(LoginForm loginForm) {
