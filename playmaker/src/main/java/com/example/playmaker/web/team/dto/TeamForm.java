@@ -2,8 +2,9 @@ package com.example.playmaker.web.team.dto;
 
 import com.example.playmaker.code.Item;
 import com.example.playmaker.security.Token;
-import lombok.Builder;
-import lombok.Data;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+import lombok.*;
 
 import java.util.Date;
 
