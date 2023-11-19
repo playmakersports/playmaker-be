@@ -66,6 +66,14 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public void valid(MemberForm memberForm) {
+        validateUsername(memberForm.getUsername()); // 아이디중복검증
+        validateNickname(memberForm.getNickname()); // 닉네임중복검증
+        validateContact(memberForm.getContact()); // 전화번호중복검증
+        validateEmail(memberForm.getEmail()); //이메일중복검증
+    }
+
+    @Override
     public Member findMember(Long id) {
         return memberRepository.findById(id).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
@@ -136,6 +144,12 @@ public class MemberServiceImpl implements MemberService{
     private void validateNickname(String nickname) {
         if (memberRepository.existsByNickname(nickname)) {
             throw new CustomException(DUPLICATE_NICKNAME);
+        }
+    }
+
+    private void validateContact(String contact){
+        if (memberRepository.existsByContact(contact)){
+            throw new CustomException(DUPLICATE_CONTACT);
         }
     }
 

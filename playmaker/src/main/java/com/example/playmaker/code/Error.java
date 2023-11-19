@@ -41,11 +41,12 @@ public enum Error {
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "E4O1","중복된 EMAIL 이 존재합니다."),
     DUPLICATE_USERNAME(HttpStatus.CONFLICT, "E4O2","이미 존재하는 USERNAME 입니다."),
     DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "E403", "이미 존재하는 NICKNAME 입니다."),
-    OVERSIZE_KEYWORD(HttpStatus.CONFLICT, "E404", "키워드 등록 제한수를 초과했습니다."),
-    HAS_NOT_NEXT_PAGE(HttpStatus.CONFLICT, "E405", "다음 페이지가 없습니다"),
-    DUPLICATE_REVIEW(HttpStatus.CONFLICT, "E406", "이미 존재하는 REVIEW 입니다."),
-    NOT_VERIFIABLE_REVIEW(HttpStatus.CONFLICT, "E407", "확인 불가능한 REVIEW 입니다."),
-    EXPIRED_LINK_ADDRESS(HttpStatus.CONFLICT, "E408", "만료된 링크입니다.");
+    DUPLICATE_CONTACT(HttpStatus.CONFLICT, "E404", "이미 존재하는 전화번호 입니다."),
+    OVERSIZE_KEYWORD(HttpStatus.CONFLICT, "E405", "키워드 등록 제한수를 초과했습니다."),
+    HAS_NOT_NEXT_PAGE(HttpStatus.CONFLICT, "E406", "다음 페이지가 없습니다"),
+    DUPLICATE_REVIEW(HttpStatus.CONFLICT, "E407", "이미 존재하는 REVIEW 입니다."),
+    NOT_VERIFIABLE_REVIEW(HttpStatus.CONFLICT, "E408", "확인 불가능한 REVIEW 입니다."),
+    EXPIRED_LINK_ADDRESS(HttpStatus.CONFLICT, "E409", "만료된 링크입니다.");
 
 
     ;

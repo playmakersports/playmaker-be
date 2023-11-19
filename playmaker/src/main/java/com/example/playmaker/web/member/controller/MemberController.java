@@ -46,6 +46,13 @@ public class MemberController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
+    @PostMapping("/validation")
+    public ResponseEntity<String> valid(@Valid @RequestBody @ApiParam(value = "회원가입정보검증체크") MemberForm memberForm)
+    {
+        memberService.valid(memberForm);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginInfo> login(@Valid @RequestBody @ApiParam(value = "로그인 데이터") LoginForm loginForm) {
         return new ResponseEntity<>(memberService.login(loginForm), HttpStatus.OK);   //jwt 내부 id, username, role 들어감
