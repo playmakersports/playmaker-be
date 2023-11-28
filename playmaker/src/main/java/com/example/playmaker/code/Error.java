@@ -39,7 +39,7 @@ public enum Error {
 
     //409 CONFLICT : Resource 의 현재 상태와 충돌, 보통 중복된 데이터 존재
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "E4O1","중복된 EMAIL 이 존재합니다."),
-    DUPLICATE_USERNAME(HttpStatus.CONFLICT, "E4O2","이미 존재하는 USERNAME 입니다."),
+    DUPLICATE_USERID(HttpStatus.CONFLICT, "E4O2","이미 존재하는 USERID 입니다."),
     DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "E403", "이미 존재하는 NICKNAME 입니다."),
     DUPLICATE_CONTACT(HttpStatus.CONFLICT, "E404", "이미 존재하는 전화번호 입니다."),
     OVERSIZE_KEYWORD(HttpStatus.CONFLICT, "E405", "키워드 등록 제한수를 초과했습니다."),

@@ -26,6 +26,7 @@ public class Member extends TimeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "member_id")
     private Long id;
+    private String userId;
     private String username;
     private String password;
     private String nickname;
@@ -61,10 +62,11 @@ public class Member extends TimeEntity {
     private MercenaryRecruitSpc recruitSpc;
 
     @Builder
-    public Member(String username, String password, String nickname, String contact, String birth, Sex sex, String email,
+    public Member(String userId ,String username, String password, String nickname, String contact, String birth, Sex sex, String email,
                   String position, ActiveArea activeArea, ActiveTime activeTime, String mercenaryYn, String proposalYn, String gameStyle,
                   String selfIntro, String preferredSoccerTeam, String pfUrl, Role role) {
 
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.nickname = nickname;

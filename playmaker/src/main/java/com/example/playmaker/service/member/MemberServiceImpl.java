@@ -44,6 +44,7 @@ public class MemberServiceImpl implements MemberService{
         validateEmail(memberForm.getEmail()); //이메일중복검증
 
         Member member = Member.builder()
+                .userId(memberForm.getUserId())
                 .username(memberForm.getUsername())
                 .password(passwordEncoder.encode(memberForm.getPassword()))
                 .nickname(memberForm.getNickname())
@@ -135,9 +136,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
 
-    private void validateUsername(String username) {
-        if (memberRepository.existsByUsername(username)) {
-            throw new CustomException(DUPLICATE_USERNAME);
+    private void validateUsername(String userId) {
+        if (memberRepository.existsByUserId(userId)) {
+            throw new CustomException(DUPLICATE_USERID);
         }
     }
 
