@@ -47,9 +47,9 @@ public class MemberController {
     }
 
     @PostMapping("/validation")
-    public ResponseEntity<String> valid(@Valid @RequestBody @ApiParam(value = "회원가입정보검증체크") MemberForm memberForm)
+    public ResponseEntity<String> valid(@Valid @RequestBody @ApiParam(value = "회원가입정보검증체크") VaildForm vaildForm)
     {
-        memberService.valid(memberForm);
+        memberService.valid(vaildForm);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 

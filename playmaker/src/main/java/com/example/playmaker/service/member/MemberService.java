@@ -11,7 +11,7 @@ import java.io.IOException;
 public interface MemberService {
 
     Member join(MemberForm memberForm);
-    void valid(MemberForm memberForm);
+    void valid(VaildForm vaildForm);
     LoginInfo login(LoginForm loginForm);
     UserPageInfo showUserPage(Long id);
     void updateUserPage(Long id, UserPageForm userPageForm, MultipartFile file) throws IOException;

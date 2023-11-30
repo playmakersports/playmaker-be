@@ -39,6 +39,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member join(MemberForm memberForm) {
 
+
         validateUsername(memberForm.getUsername()); // 아이디중복검증
         validateNickname(memberForm.getNickname()); // 닉네임중복검증
         validateEmail(memberForm.getEmail()); //이메일중복검증
@@ -66,12 +67,13 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.save(member);
     }
 
+    @Transactional
     @Override
-    public void valid(MemberForm memberForm) {
-        validateUsername(memberForm.getUsername()); // 아이디중복검증
-        validateNickname(memberForm.getNickname()); // 닉네임중복검증
-        validateContact(memberForm.getContact()); // 전화번호중복검증
-        validateEmail(memberForm.getEmail()); //이메일중복검증
+    public void valid(VaildForm vaildForm) {
+        validateUsername(vaildForm.getUserId()); // 아이디중복검증
+        validateNickname(vaildForm.getNickName()); // 닉네임중복검증
+        validateContact(vaildForm.getContact()); // 전화번호중복검증
+        validateEmail(vaildForm.getEmail()); //이메일중복검증
     }
 
     @Override
