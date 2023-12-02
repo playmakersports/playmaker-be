@@ -43,14 +43,16 @@ public class MemberController {
     @PostMapping("/join")
     public ResponseEntity<String> join(@Valid @RequestBody @ApiParam(value = "회원가입정보") MemberForm memberForm) {
         memberService.join(memberForm);
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        //return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/validation")
     public ResponseEntity<String> valid(@Valid @RequestBody @ApiParam(value = "회원가입정보검증체크") VaildForm vaildForm)
     {
         memberService.valid(vaildForm);
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        //return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
@@ -87,7 +89,8 @@ public class MemberController {
                                                 @RequestPart(value = "image") MultipartFile file,
                                                 @PathVariable Long memberId) throws IOException {
         memberService.updateUserPage(memberId, userPageForm, file);
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok().build();
+        //return new ResponseEntity<>("success", HttpStatus.OK);
     }
     @ApiOperation(
             value = "팀 입단 요청 확인 페이지"
@@ -99,8 +102,8 @@ public class MemberController {
 
         Long loginMemberId = principalUserDetails.getMember().getId();
         teamOfferService.offer(loginMemberId, memberId, offerForm);
-
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok().build();
+        //return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 }
