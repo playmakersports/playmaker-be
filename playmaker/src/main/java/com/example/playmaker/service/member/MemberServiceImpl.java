@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void valid(VaildForm vaildForm) {
         validateUsername(vaildForm.getUserId()); // 아이디중복검증
-        validateNickname(vaildForm.getNickName()); // 닉네임중복검증
+        validateNickname(vaildForm.getNickname()); // 닉네임중복검증
         validateContact(vaildForm.getContact()); // 전화번호중복검증
         validateEmail(vaildForm.getEmail()); //이메일중복검증
     }
